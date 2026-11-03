@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f5f7">
+
+    <title>AI Lecture Companion</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">G</div>
+            <span class="brand-name">LectureAI</span>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="upload">
+                <span class="nav-icon">↑</span>
+                <span>Upload Lecture</span>
+            </button>
+
+            <button class="nav-item" data-page="history">
+                <span class="nav-icon">▤</span>
+                <span>Lecture History</span>
+            </button>
+
+            <button class="nav-item" data-page="notes">
+                <span class="nav-icon">▧</span>
+                <span>Study Notes</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="nav-item" id="settingsButton">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </button>
+
+            <div class="sidebar-footer">
+                <div class="avatar">AI</div>
+                <div>
+                    <strong>Lecture Companion</strong>
+                    <small>AI Learning Workspace</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN APPLICATION -->
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>Dashboard</span>
+                <span class="breadcrumb-separator">›</span>
+                <span id="breadcrumbCurrent">My Lectures</span>
+            </div>
+
+            <div class="topbar-actions">
+                <span class="status-badge">
+                    <span class="status-dot"></span>
+                    AI Assistant
+                </span>
+
+                <button class="profile-button" id="profileButton"
+                        aria-label="Profile">
+                    P
+                </button>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD PAGE -->
+        <section class="page" id="dashboardPage">
+
+            <div class="welcome-section">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL LEARNING SPACE</p>
+                    <h1>AI Lecture Companion</h1>
+                    <p class="subtitle">
+                        Turn your lectures into organized transcripts and
+                        intelligent study notes.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="newLectureButton">
+                    <span>＋</span> New Lecture
+                </button>
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">▤</div>
+                    <div>
+                        <p>Total Lectures</p>
+                        <h2 id="totalLectures">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">◷</div>
+                    <div>
+                        <p>Transcript Segments</p>
+                        <h2 id="totalSegments">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✦</div>
+                    <div>
+                        <p>AI Notes Generated</p>
+                        <h2 id="totalNotes">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- UPLOAD SECTION -->
+            <section class="content-card upload-section" id="uploadSection">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Process a New Lecture</h2>
+                        <p>Upload your lecture video and its PDF slides.</p>
+                    </div>
+
+                    <span class="step-label">STEP 01</span>
+                </div>
+
+
+                <div class="upload-grid">
+
+                    <!-- VIDEO UPLOAD -->
+                    <div class="upload-box" id="videoDropzone">
+
+                        <div class="upload-icon video-icon">▶</div>
+
+                        <h3>Lecture Video</h3>
+
+                        <p>Drag and drop your video here</p>
+
+                        <p class="file-types">MP4, MOV, MKV</p>
+
+                        <input
+                            type="file"
+                            id="videoInput"
+                            accept=".mp4,.mov,.mkv,video/mp4,video/quicktime,video/x-matroska"
+                            hidden
+                        >
+
+                        <button class="secondary-button"
+                                type="button"
+                                id="chooseVideoButton">
+                            Choose Video
+                        </button>
+
+                        <div class="selected-file" id="videoFileName">
+                            No video selected
+                        </div>
+
+                    </div>
+
+
+                    <!-- PDF UPLOAD -->
+                    <div class="upload-box" id="slidesDropzone">
+
+                        <div class="upload-icon pdf-icon">PDF</div>
+
+                        <h3>Lecture Slides</h3>
+
+                        <p>Upload your presentation slides</p>
+
+                        <p class="file-types">PDF documents</p>
+
+                        <input
+                            type="file"
+                            id="slidesInput"
+                            accept=".pdf,application/pdf"
+                            hidden
+                        >
+
+                        <button class="secondary-button"
+                                type="button"
+                                id="chooseSlidesButton">
+                            Choose PDF
+                        </button>
+
+                        <div class="selected-file" id="slidesFileName">
+                            No PDF selected
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="processing-actions">
+
+                    <div class="processing-info">
+                        <span class="info-icon">ⓘ</span>
+                        <span>
+                            AI will transcribe the audio, match slides,
+                            and generate study notes.
+                        </span>
+                    </div>
+
+                    <button class="primary-button process-button"
+                            id="processButton">
+                        <span>✦</span> Process Lecture
+                    </button>
+
+                </div>
+
+
+                <!-- PROCESSING STATUS -->
+                <div class="processing-status"
+                     id="processingStatus"
+                     aria-live="polite"
+                     hidden>
+
+                    <div class="processing-heading">
+                        <span class="loading-spinner"
+                              id="loadingSpinner"></span>
+
+                        <div>
+                            <h3 id="processingTitle">Processing lecture...</h3>
+                            <p id="processingMessage">
+                                Preparing your files.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+                    <p class="progress-label" id="progressLabel">
+                        0% complete
+                    </p>
+
+                </div>
+
+                <div class="error-message"
+                     id="errorMessage"
+                     role="alert"
+                     hidden>
+                </div>
+
+            </section>
+
+
+            <!-- RESULTS SECTION -->
+            <section class="results-section" id="resultsSection" hidden>
+
+                <div class="results-heading">
+                    <div>
+                        <p class="eyebrow">LECTURE ANALYSIS</p>
+                        <h2 id="resultLectureTitle">Your Lecture</h2>
+                        <p class="subtitle">
+                            Review the transcript and your AI-generated notes.
+                        </p>
+                    </div>
+
+                    <button class="secondary-button" id="downloadNotesButton">
+                        ↓ Download Notes
+                    </button>
+                </div>
+
+
+                <div class="results-stats">
+                    <div class="mini-stat">
+                        <span>Language</span>
+                        <strong id="resultLanguage">Unknown</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>Transcript Segments</span>
+                        <strong id="resultSegmentCount">0</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>PDF Slides</span>
+                        <strong id="resultSlideCount">0</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>Processing Time</span>
+                        <strong id="resultProcessingTime">0 sec</strong>
+                    </div>
+                </div>
+
+
+                <div class="result-tabs" role="tablist">
+
+                    <button class="result-tab active"
+                            data-tab="transcript"
+                            role="tab"
+                            aria-selected="true">
+                        Transcript
+                    </button>
+
+                    <button class="result-tab"
+                            data-tab="slides"
+                            role="tab"
+                            aria-selected="false">
+                        Slides
+                    </button>
+
+                    <button class="result-tab"
+                            data-tab="notes"
+                            role="tab"
+                            aria-selected="false">
+                        AI Study Notes
+                    </button>
+
+                </div>
+
+
+                <div class="result-panel active"
+                     id="transcriptPanel"
+                     role="tabpanel">
+
+                    <div class="panel-toolbar">
+                        <h3>Synchronized Transcript</h3>
+
+                        <input
+                            type="search"
+                            id="transcriptSearch"
+                            placeholder="Search transcript..."
+                            aria-label="Search transcript"
+                        >
+                    </div>
+
+                    <div id="transcriptContent" class="transcript-content">
+                        <p class="empty-state">
+                            Process a lecture to view its transcript.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="result-panel"
+                     id="slidesPanel"
+                     role="tabpanel"
+                     hidden>
+
+                    <h3>Lecture Slides</h3>
+
+                    <div class="slides-grid" id="slidesContent">
+                        <p class="empty-state">
+                            Extracted slides will appear here.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="result-panel"
+                     id="notesPanel"
+                     role="tabpanel"
+                     hidden>
+
+                    <div class="panel-toolbar">
+                        <h3>AI-Generated Study Notes</h3>
+
+                        <span class="ai-badge">✦ Powered by Gemini</span>
+                    </div>
+
+                    <article class="notes-content" id="notesContent">
+                        <p class="empty-state">
+                            Your AI-generated notes will appear here.
+                        </p>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- RECENT LECTURES -->
+            <section class="content-card history-section"
+                     id="historySection">
+
+                <div class="section-heading">
+    <div>
+        <h2>Recent Lectures</h2>
+        <p>Continue learning from your previous lectures.</p>
+    </div>
+
+    <div class="history-actions">
+        <button
+            class="text-button"
+            id="refreshHistoryButton"
+            type="button">
+            Refresh ↻
+        </button>
+
+        <button
+            class="text-button"
+            id="clearAllLecturesButton"
+            type="button">
+            Clear All
+        </button>
+    </div>
+</div>
+
+                <div id="lectureHistory">
+
+                    <div class="empty-history">
+                        <div class="empty-history-icon">▤</div>
+                        <h3>No lectures yet</h3>
+                        <p>Your processed lectures will appear here.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- AI ASSISTANT PANEL -->
+        <aside class="assistant-panel">
+
+            <div class="assistant-header">
+
+                <div class="assistant-title">
+                    <div class="assistant-avatar">✦</div>
+
+                    <div>
+                        <h2>AI Assistant</h2>
+                        <p>Lecture learning tools</p>
+                    </div>
+                </div>
+
+                <span class="online-indicator"
+                      title="Assistant interface available"></span>
+
+            </div>
+
+
+            <div class="assistant-actions">
+
+                <button class="action-card" data-action="summarize">
+                    <span class="action-icon purple">▤</span>
+                    <span>Summarize</span>
+                    <span class="action-arrow">›</span>
+                </button>
+
+                <button class="action-card" data-action="flashcards">
+                    <span class="action-icon blue">▣</span>
+                    <span>Flashcards</span>
+                    <span class="action-arrow">›</span>
+                </button>
+
+                <button class="action-card" data-action="quiz">
+                    <span class="action-icon orange">?</span>
+                    <span>Generate Quiz</span>
+                    <span class="action-arrow">›</span>
+                </button>
+
+                <button class="action-card" data-action="study-guide">
+                    <span class="action-icon green">▤</span>
+                    <span>Study Guide</span>
+                    <span class="action-arrow">›</span>
+                </button>
+
+                <button class="action-card" data-action="key-terms">
+                    <span class="action-icon pink">Aa</span>
+                    <span>Explain Key Terms</span>
+                    <span class="action-arrow">›</span>
+                </button>
+
+            </div>
+
+
+            <div class="assistant-divider"></div>
+
+
+            <div class="chat-heading">
+                <div>
+                    <h3>Ask about your lecture</h3>
+                    <p>Get help understanding key concepts.</p>
+                </div>
+
+                <button class="icon-button"
+                        id="clearChatButton"
+                        title="Clear chat">
+                    ↻
+                </button>
+            </div>
+
+
+            <div class="chat-messages" id="chatMessages" aria-live="polite">
+
+                <div class="chat-message assistant-message">
+                    <div class="message-avatar">✦</div>
+
+                    <div class="message-bubble">
+                        <p>
+                            Hi! 👋 Process a lecture first, then I can help
+                            you explore its transcript and study notes.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <form class="chat-form" id="chatForm">
+
+                <textarea
+                    id="chatInput"
+                    rows="2"
+                    placeholder="Ask a question..."
+                    aria-label="Ask the AI assistant"
+                ></textarea>
+
+                <button type="submit"
+                        id="sendChatButton"
+                        aria-label="Send message">
+                    ↑
+                </button>
+
+            </form>
+
+            <p class="chat-disclaimer">
+                AI responses may contain errors. Verify important information.
+            </p>
+
+        </aside>
+
+    </main>
+
+</div>
+
+
+<!-- PDF GENERATION LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- YOUR JAVASCRIPT -->
+<script src="script.js"></script>
+</body>
+</html>

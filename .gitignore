@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# API keys
+.env
+.env.*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated files
+uploads/
+temp/
+slides/
+
+# VS Code
+.vscode/
+!.env.example
+
+# Generated lecture processing files
+extracted_frames/
+slide_images/
